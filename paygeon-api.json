@@ -1,0 +1,428 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Paygeon API",
+    "description": "API documentation for Paygeon services.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.paygeon.io/v1/",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "get": {
+        "summary": "Get user details",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "user_id": 123,
+                  "username": "john_doe",
+                  "email": "john@example.com"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create user",
+        "requestBody": {
+          "description": "User data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid data"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user",
+        "requestBody": {
+          "description": "Updated user data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid data"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/marketplace-users": {
+      "get": {
+        "summary": "Get marketplace users",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "user_id": 456,
+                    "username": "jane_doe"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add signature for user",
+        "requestBody": {
+          "description": "Signature data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignatureCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Signature added successfully"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid data"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove marketplace user",
+        "responses": {
+          "200": {
+            "description": "User removed successfully"
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "User not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rotate-api-keys": {
+      "post": {
+        "summary": "Rotate API keys for user",
+        "responses": {
+          "200": {
+            "description": "API keys rotated successfully"
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid data"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/virtual-card": {
+      "post": {
+        "summary": "Create a Virtual Credit Card",
+        "description": "Create a new Virtual Credit Card in Paygeon.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualCardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Virtual Credit Card created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualCardResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get Virtual Credit Cards",
+        "description": "Retrieve a list of all Virtual Credit Cards in Paygeon.",
+        "responses": {
+          "200": {
+            "description": "List of Virtual Credit Cards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VirtualCardResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/virtual-card/{card_id}/transactions": {
+      "get": {
+        "summary": "Get Virtual Credit Card Transactions",
+        "description": "Retrieve a list of transactions for a specific Virtual Credit Card.",
+        "parameters": [
+          {
+            "name": "card_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the Virtual Credit Card"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of transactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/virtual-card/{card_id}": {
+      "put": {
+        "summary": "Update Virtual Credit Card",
+        "description": "Modify attributes of a specific Virtual Credit Card.",
+        "parameters": [
+          {
+            "name": "card_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the Virtual Credit Card"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualCardUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Virtual Credit Card updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualCardResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove Virtual Credit Card",
+        "description": "Delete a specific Virtual Credit Card from Paygeon.",
+        "parameters": [
+          {
+            "name": "card_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the Virtual Credit Card"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Virtual Credit Card deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserCreateRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": ["username", "email"]
+      },
+      "UserUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "SignatureCreateRequest": {
+        "type": "object",
+        "properties": {
+          "signature_text": {
+            "type": "string"
+          }
+        },
+        "required": ["signature_text"]
+      },
+      "VirtualCardRequest": {
+        "type": "object",
+        "properties": {
+          "credit_limit": {
+            "type": "number"
+          },
+          "expiration_date": {
+            "type": "string"
+          },
+          "spending_categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "VirtualCardResponse": {
+        "type": "object",
+        "properties": {
+          "card_id": {
+            "type": "string"
+          },
+          "credit_limit": {
+            "type": "number"
+          },
+          "expiration_date": {
+            "type": "string"
+          },
+          "available_balance": {
+            "type": "number"
+          }
+        }
+      },
+      "VirtualCardUpdate": {
+        "type": "object",
+        "properties": {
+          "credit_limit": {
+            "type": "number"
+          }
+        }
+      },
+      "Transaction": {
+        "type": "object",
+        "properties": {
+          "transaction_id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "merchant": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
