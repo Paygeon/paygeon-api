@@ -6,6 +6,9 @@
     "version" : "1.0.0"
   },
   "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/KAPED/paygeon-api/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
     "url" : "https://api.paygeon.io/v1/",
     "description" : "Production Server"
   } ],
