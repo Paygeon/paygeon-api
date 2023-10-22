@@ -10,7 +10,7 @@ fields:
 links:
   - name: API
     type: REPOSITORY
-    url: 'https://github.com/Paygeon/API/paygeon-api.json'
+    url: 'https://github.com/Paygeon/paygeon-api'
   - name: ''
     type: PROJECT
     url: 'https://paygeon.atlassian.net/browse/PP'
