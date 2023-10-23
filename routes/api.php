@@ -22,22 +22,25 @@ use App\Http\Controllers\Api\VccController;
 //     return $request->user();
 // });
 Route::post('/onboard-user', [AuthController::class, 'createUser']);
-Route::post('/auth/login', [AuthController::class, 'loginUser']);
-
-
-// Route::middleware('auth:sanctum')->group(function () {
-
-Route::get('/user', [UserController::class, 'index']);
-Route::post('/user', [UserController::class, 'store']);
-Route::put('/user', [UserController::class, 'update']);
-
-Route::post('/virtual-card', [VccController::class, 'store']);
-Route::get('/virtual-card/{card_id}/transactions', [VccController::class, 'transactions']);
-Route::put('/virtual-card/{card_id}', [VccController::class, 'update']);
-Route::delete('/virtual-card/{card_id}', [VccController::class, 'destroy']);
+Route::post('/login', [AuthController::class, 'loginUser']);
+// Route::post('/user', [UserController::class, 'store']);
 
 
 
+Route::middleware('auth:sanctum')->group(function () {
+    
+    Route::get('/user', [UserController::class, 'index']);
+    Route::POST('/rotate-api-keys', [UserController::class, 'rotateapikeys']);
+    
+    // Route::put('/user', [UserController::class, 'update']);
+
+
+    Route::post('/virtual-card', [VccController::class, 'store']);
+    Route::get('/virtual-card/{card_id}/transactions', [VccController::class, 'transactions']);
+    Route::put('/virtual-card/{card_id}', [VccController::class, 'update']);
+    Route::delete('/virtual-card/{card_id}', [VccController::class, 'destroy']);
+    Route::post('/virtual-card', [VccController::class, 'store']);
+});
 
 
 
@@ -45,5 +48,7 @@ Route::delete('/virtual-card/{card_id}', [VccController::class, 'destroy']);
 
 
 
-// });
+
+
+
 

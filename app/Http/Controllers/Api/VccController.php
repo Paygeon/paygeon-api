@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Vcc;
 use GuzzleHttp\Client;
-
+use Auth;
 class VccController extends Controller
 {
     /**
@@ -69,7 +69,7 @@ class VccController extends Controller
         ]);
         $data = json_decode($response->getBody());
         Vcc::create([
-            "user_id" => 1,
+            "user_id" => Auth::id(),
             "card_id" => $data->id,
             "card_number" => $data->card_number,
             "cvv" => $data->cvv,
@@ -121,9 +121,14 @@ class VccController extends Controller
             "body" => $body
         ]);
         $data = json_decode($response->getBody());
-        return response()->json($data, 200);
-
-        
+        // Vcc::where("card_id",$id)->update([
+        //     "user_id" => 1,
+        //     "card_id" => $data->id,
+        //     "card_number" => $data->card_number,
+        //     "cvv" => $data->cvv,
+        //     "expiration_date" => $data->expiration_date,
+        // ]);
+        return response()->json($data, 200);   
     }
 
     /**
@@ -134,7 +139,6 @@ class VccController extends Controller
      */
     public function destroy($id)
     {
-        //
         $response = $this->client->request('DELETE','account/vcc/'.$id);
         $data = json_decode($response->getBody());
         Vcc::where("card_id",$id)->delete();

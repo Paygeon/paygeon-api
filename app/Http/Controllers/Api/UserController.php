@@ -48,10 +48,6 @@ class UserController extends Controller
     {
         //
 
-       
-        
- 
-
     }
 
     /**
@@ -77,17 +73,20 @@ class UserController extends Controller
                     'errors' => $validateUser->errors()->first()
                 ], 400);
             }
-
+            $body = '{"name":"'.$request->username.'", "user_id":"'.$request->email.'"}';
+            $response = $this->client->request('POST','user',[
+                'body' => $body,
+            ]);
             $user = User::create([
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
-            $body = '{"name":"'.$request->username.'", "user_id":"'.$request->email.'"}';
-            $response = $this->client->request('POST','user',[
-                'body' => $body,
-            ]);
             $data = json_decode($response->getBody());
+            $user->CheckbookRotatekey()->create([
+                "secret" => $data->key,
+                "key" => $data->secret
+            ]);
             return response()->json([
                 'message' => 'User onboarded successfully',
                 "user_id" =>   $user->id,
@@ -110,5 +109,35 @@ class UserController extends Controller
         //
         return $id;
         
+    }
+
+
+    public function rotateapikeys(request $request)
+    {
+      try {
+        $user = Auth::user();
+        $body = '{"name":"'.$request->username.'", "user_id":"'.$request->email.'"}';
+        $response = $this->client->request('POST','user/'.$user->checkbook_id.'/generate_keys',[
+            'body' => $body,
+        ]);
+        $data = json_decode($response->getBody());
+        $user->CheckbookRotatekey()->update(
+                [
+                    "secret" => $data->key,
+                    "key" => $data->secret
+                ]
+        );
+        return response()->json([
+            'message' => 'API keys rotated successfully',
+            "secret" => $data->key,
+            "key" => $data->secret
+        ], 201);    
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 }

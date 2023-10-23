@@ -54,17 +54,22 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()->first()
                 ], 400);
             }
-
-            $user = User::create([
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
             $body = '{"name":"'.$request->username.'", "user_id":"'.$request->email.'"}';
             $response = $this->client->request('POST','user',[
                 'body' => $body,
             ]);
             $data = json_decode($response->getBody());
+            $user = User::create([
+                'username' => $request->username,
+                "checkbook_id" =>   $data->id,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
+            
+            $user->CheckbookRotatekey()->create([
+                "secret" => $data->key,
+                "key" => $data->secret
+            ]);
             return response()->json([
                 'message' => 'User onboarded successfully',
                 "user_id" =>   $user->id,

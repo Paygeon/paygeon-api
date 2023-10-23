@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
+        'checkbook_id',
         'email',
         'password',
     ];
@@ -41,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the CheckbookRotatekey associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function CheckbookRotatekey()
+    {
+        return $this->hasOne(CheckbookRotatekey::class, 'user_id');
+    }
 }
