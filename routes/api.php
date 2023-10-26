@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::post('/virtual-card', [VccController::class, 'store']);
+    Route::get('/virtual-card/{card_id}', [VccController::class, 'show']);
     Route::get('/virtual-card/{card_id}/transactions', [VccController::class, 'transactions']);
     Route::put('/virtual-card/{card_id}', [VccController::class, 'update']);
     Route::delete('/virtual-card/{card_id}', [VccController::class, 'destroy']);

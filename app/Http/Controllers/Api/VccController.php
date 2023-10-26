@@ -93,6 +93,9 @@ class VccController extends Controller
     public function show($id)
     {
         //
+        $vc = Vcc::where("card_id",$id)->first();
+        return response()->json($vc, 200);
+
     }
 
     /**
