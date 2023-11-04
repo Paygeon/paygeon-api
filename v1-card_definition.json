@@ -1,0 +1,255 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Paygeon API",
+    "description": " Brand and issue your own debit or credit cards. "
+  },
+  "servers": [
+    {
+      "url": "https://kaped.api.blobr.app/v1-card",
+      "description": "Blobr API Gateway"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "x-blobr-key",
+        "in": "header"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/api/virtual-card/{card_id}": {
+      "delete": {
+        "summary": "Delete Virtual Credit Card (VCC)",
+        "operationId": "deleteApiVirtualCardByCardId",
+        "responses": {
+          "200": {
+            "description": "Default response"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "card_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update Virtual Credit Card (VCC)",
+        "operationId": "putApiVirtualCardByCardId",
+        "responses": {
+          "200": {
+            "description": "Default response"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "city": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "line_1": {
+                        "type": "string"
+                      },
+                      "zip": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "credit_limit": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "card_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/virtual-card/{card_id}/transactions": {
+      "get": {
+        "summary": "Get Virtual Credit Card (VCC) Transactions",
+        "operationId": "getApiVirtualCardByCardIdTransactions",
+        "responses": {
+          "200": {
+            "description": "Default response"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "card_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/user": {
+      "get": {
+        "summary": "Get All Users",
+        "operationId": "getApiUser",
+        "responses": {
+          "200": {
+            "description": "Default response"
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "get": {
+        "summary": "Login",
+        "operationId": "getApiLogin",
+        "responses": {
+          "200": {
+            "description": "Default response"
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/virtual-card": {
+      "post": {
+        "summary": "Create Virtual Credit Card (VCC)",
+        "operationId": "postApiVirtualCard",
+        "responses": {
+          "200": {
+            "description": "Default response"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "city": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      },
+                      "line_1": {
+                        "type": "string"
+                      },
+                      "zip": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "credit_limit": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      }
+    },
+    "/api/onboard-user": {
+      "post": {
+        "summary": "Onboard User",
+        "operationId": "postApiOnboardUser",
+        "responses": {
+          "200": {
+            "description": "Default response"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "additional_info": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      }
+    }
+  }
+}
