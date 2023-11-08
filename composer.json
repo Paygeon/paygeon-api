@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "moesif/moesif-laravel": "^2.0",
+        "moesif/moesif-symfony1.4": "^0.0.4",
         "spatie/laravel-permission": "^5.11"
     },
     "require-dev": {

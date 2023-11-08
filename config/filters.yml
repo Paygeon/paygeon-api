@@ -1,0 +1,4 @@
+MyCustomFilter:
+  class: MyCustomFilter
+  param:
+    applicationId: {{ props.appId }}
