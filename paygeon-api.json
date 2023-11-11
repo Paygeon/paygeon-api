@@ -1,0 +1,212 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Paygeon API",
+    "version": "1.0.0",
+    "description": "API documentation for Paygeon services."
+  },
+  "servers": [
+    {
+      "url": "https://paygeon.io/v1/4",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/onboard-user": {
+      "post": {
+        "summary": "Onboard User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "username": "john_doe",
+                "email": "john@1231221123.com",
+                "password": "SecurePassword123",
+                "additional_info": "Any other relevant user data"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User onboarded successfully"
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "get": {
+        "summary": "Login",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "get": {
+        "summary": "Get All Users",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all users"
+          }
+        }
+      }
+    },
+    "/api/virtual-card": {
+      "post": {
+        "summary": "Create VCC",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "address": {
+                  "city": "newyork",
+                  "country": "Pakistan",
+                  "line_1": "foxwood",
+                  "zip": "10001",
+                  "state": "WN"
+                },
+                "email": "tate@gmail.com",
+                "phone": "3138506039",
+                "credit_limit": "2000"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Virtual Card created successfully"
+          }
+        }
+      }
+    },
+    "/api/virtual-card/{card_id}": {
+      "put": {
+        "summary": "Update VCC",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "address": {
+                  "city": "newyork",
+                  "country": "Pakistan",
+                  "line_1": "foxwood",
+                  "zip": "10001",
+                  "state": "WN"
+                },
+                "email": "tate@gmail.com",
+                "phone": "3138506039",
+                "credit_limit": "2000"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Virtual Card updated successfully"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get VCC",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the Virtual Card"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete VCC",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Virtual Card deleted successfully"
+          }
+        }
+      }
+    },
+    "/api/virtual-card/{card_id}/transactions": {
+      "get": {
+        "summary": "Get VCC Transactions",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of transactions for the Virtual Card"
+          }
+        }
+      }
+    },
+    "/api/rotate-api-keys": {
+      "get": {
+        "summary": "Rotate API Keys",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API Keys rotated successfully"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
