@@ -1,0 +1,27 @@
+name: API
+id: 'ari:cloud:compass:661ab2fa-64d7-4e7f-9845-51031aa8cf12:component/bc8e4401-1b7c-4d9c-b496-da836ca3f5c0/00a3af21-ea1e-49cc-9d83-d427062a338a'
+description: Paygeon partner APIs for integrating the Paygeon services in 3rd party partner applications.
+configVersion: 1
+typeId: LIBRARY
+ownerId: 'ari:cloud:teams::team/c326bd54-0449-4113-af95-54de0c72ead4'
+fields:
+  lifecycle: Pre-release
+  tier: 4
+links:
+  - name: API
+    type: REPOSITORY
+    url: 'https://github.com/Paygeon/paygeon-api'
+  - name: ''
+    type: PROJECT
+    url: 'https://paygeon.atlassian.net/browse/PP'
+  - name: API Docs
+    type: DOCUMENT
+    url: 'https://bizzy-1.gitbook.io/data-room/product-design/documentation/apis/paygeon-api'
+relationships:
+  DEPENDS_ON:
+    - 'ari:cloud:compass:661ab2fa-64d7-4e7f-9845-51031aa8cf12:component/bc8e4401-1b7c-4d9c-b496-da836ca3f5c0/2a8086a4-b5d5-4e1e-81c3-3d044bdd8199'
+labels: null
+customFields: null
+
+# Learn more about formatting compass.yml:
+# https://go.atlassian.com/compass-yml-format
